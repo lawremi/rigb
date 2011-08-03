@@ -1,0 +1,12 @@
+/.classpath
+/.project
+/R/.Rhistory
+/inst/java/.metadata
+/src/.metadata
+/.gitignore~
+/inst/java/com/gene/bcb/rigb/DataAccessException.class
+/inst/java/com/gene/bcb/rigb/genometry/GRangesSymLoader.class
+/inst/java/com/gene/bcb/rigb/genometry/GRangesToSymmetries.class
+/inst/java/com/gene/bcb/rigb/genometry/GraphGRangesToSymmetries.class
+/inst/java/com/gene/bcb/rigb/genometry/SimpleGRangesToSymmetries.class
+/inst/java/com/gene/bcb/rigb/proxy/GRanges.class
