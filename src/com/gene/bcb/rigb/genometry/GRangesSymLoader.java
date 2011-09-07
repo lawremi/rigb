@@ -24,10 +24,10 @@ public class GRangesSymLoader extends SymLoader {
 	private GRanges granges;
 	private GRangesToSymmetries converter;
 	
-	public GRangesSymLoader(GRanges granges, GRangesToSymmetries converter, URI uri, String featureName, AnnotatedSeqGroup group) {
+	public GRangesSymLoader(URI uri, String featureName, AnnotatedSeqGroup group) {
 		super(uri, featureName, group);
-		this.granges = granges;
-		this.converter = converter;
+		this.granges = lookupGRangesByURI(uri);
+		this.converter = lookupConverterByURI(uri);
 	}
 
 	@Override
