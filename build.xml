@@ -1,0 +1,44 @@
+<project name="rIGB" default="dist" basedir=".">
+  <description>
+    build the rIGB.jar file
+  </description>
+  <!-- set global properties for this build -->
+  <property environment="env"/>
+  <property name="src" location="src"/>
+  <property name="build" location="build"/>
+  <property name="dist"  location="dist"/>
+  <property name="lib"   location="lib"/>
+
+  <target name="compile" description="compile the source" >
+    <fail unless="env.IGB_WORKSPACE">Please set the IGB_WORKSPACE env variable to the IGB home directory</fail>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build}"/>
+    <!-- Compile the java code from ${src} into ${build} -->
+    <javac srcdir="${src}" destdir="${build}">
+      <classpath location="${env.IGB_WORKSPACE}/Integrated_Genome_Browser/genometryImpl/build"/>
+      <classpath location="${env.IGB_WORKSPACE}/Integrated_Genome_Browser/plugins/igb_service/build"/>
+      <classpath location="${env.IGB_WORKSPACE}/Integrated_Genome_Browser/ext/felix.jar"/>
+      <classpath location="${env.IGB_WORKSPACE}/Integrated_Genome_Browser/ext/tribble-0.1.jar"/>
+      <classpath location="${lib}/REngine.jar"/>
+      <classpath location="${lib}/commons-lang3-3.0.jar"/>
+    </javac>
+  </target>
+
+  <target name="dist" depends="compile" description="generate the distribution" >
+    <!-- Create the distribution directory -->
+    <mkdir dir="${dist}"/>
+
+    <!-- Put everything in ${build} into the rIGB.jar file -->
+    <jar jarfile="${dist}/rIGB.jar" manifest="META-INF/MANIFEST.MF">
+      <fileset dir="${build}" />
+      <fileset dir="." includes="**/REngine.jar"/>
+      <fileset dir="." includes="**/commons-lang3-3.0.jar"/>
+    </jar>
+  </target>
+
+  <target name="clean" description="clean up" >
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${build}"/>
+    <delete dir="${dist}"/>
+  </target>
+</project>
