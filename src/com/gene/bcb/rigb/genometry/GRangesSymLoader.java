@@ -23,7 +23,7 @@ import com.gene.bcb.rigb.proxy.GRanges;
 public class GRangesSymLoader extends SymLoader {
 	private GRanges granges;
 	private GRangesToSymmetries converter;
-	
+
 	public GRangesSymLoader(URI uri, String featureName, AnnotatedSeqGroup group) {
 		super(uri, featureName, group);
 		this.granges = lookupGRangesByURI(uri);
@@ -41,7 +41,7 @@ public class GRangesSymLoader extends SymLoader {
 		try {
 			seqlengths = granges.getSeqLengths();
 		} catch (DataAccessException e) {
-			Logger.getLogger(GRangesSymLoader.class.getName()).log(Level.SEVERE, 
+			Logger.getLogger(GRangesSymLoader.class.getName()).log(Level.SEVERE,
 					"Failed to build chromosome list", e);
 		}
 		List<BioSeq> chromosomeList = new ArrayList<BioSeq>(seqlengths.size());
@@ -62,12 +62,12 @@ public class GRangesSymLoader extends SymLoader {
 		try {
 			symmetries = getSymmetries(granges.subsetByOverlaps(overlapSpan));
 		} catch (DataAccessException e) {
-			Logger.getLogger(GRangesSymLoader.class.getName()).log(Level.SEVERE, 
+			Logger.getLogger(GRangesSymLoader.class.getName()).log(Level.SEVERE,
 					"Failed to get region '" + overlapSpan + "'", e);
 		}
 		return symmetries;
 	}
-	
+
 	@Override
 	public List<LoadStrategy> getLoadChoices() {
 		return Arrays.asList(LoadStrategy.NO_LOAD,
@@ -76,15 +76,25 @@ public class GRangesSymLoader extends SymLoader {
 				             LoadStrategy.VISIBLE,
 				             LoadStrategy.AUTOLOAD);
 	}
-	
+
 	private List<? extends SeqSymmetry> getSymmetries(GRanges granges) {
 		List <? extends SeqSymmetry> symmetries = Collections.emptyList();
 		try {
 			symmetries = converter.convert(granges, group);
 		} catch (DataAccessException e) {
-			Logger.getLogger(GRangesSymLoader.class.getName()).log(Level.SEVERE, 
+			Logger.getLogger(GRangesSymLoader.class.getName()).log(Level.SEVERE,
 					"Failed to get features", e);
 		}
 		return symmetries;
+	}
+
+	private GRanges lookupGRangesByURI(URI uri) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private GRangesToSymmetries lookupConverterByURI(URI uri) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
