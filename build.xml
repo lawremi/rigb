@@ -11,16 +11,16 @@
   <property name="lib"   location="${inst}/lib"/>
 
   <target name="compile" description="compile the source" >
-    <fail unless="env.IGB_WORKSPACE">Please set the IGB_WORKSPACE env variable to the IGB home directory</fail>
+    <fail unless="env.IGB_WORKSPACE">Please set the IGB_WORKSPACE env variable to the IGB checkout directory</fail>
     <!-- Create the build directory structure used by compile -->
     <mkdir dir="${build}"/>
 
     <!-- Compile the java code from ${src} into ${build} -->
     <javac srcdir="${src}" destdir="${build}">
-      <classpath location="${env.IGB_WORKSPACE}/Integrated_Genome_Browser/genometryImpl/build"/>
-      <classpath location="${env.IGB_WORKSPACE}/Integrated_Genome_Browser/plugins/igb_service/build"/>
-      <classpath location="${env.IGB_WORKSPACE}/Integrated_Genome_Browser/ext/felix.jar"/>
-      <classpath location="${env.IGB_WORKSPACE}/Integrated_Genome_Browser/ext/tribble-0.1.jar"/>
+      <classpath location="${env.IGB_WORKSPACE}/genometryImpl/build"/>
+      <classpath location="${env.IGB_WORKSPACE}/plugins/igb_service/build"/>
+      <classpath location="${env.IGB_WORKSPACE}/ext/felix.jar"/>
+      <classpath location="${env.IGB_WORKSPACE}/ext/tribble-0.1.jar"/>
       <classpath location="${lib}/REngine.jar"/>
       <classpath location="${lib}/commons-lang3-3.0.jar"/>
     </javac>
