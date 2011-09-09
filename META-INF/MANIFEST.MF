@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: rIGB
+Bundle-SymbolicName: rIGB
+Bundle-Version: 0.0.1
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package:  com.affymetrix.genometryImpl,
+ com.affymetrix.genometryImpl.parsers,
+ com.affymetrix.genometryImpl.span,
+ com.affymetrix.genometryImpl.symmetry,
+ com.affymetrix.genometryImpl.symloader,
+ com.affymetrix.genometryImpl.util,
+ com.affymetrix.igb.osgi.service,
+ org.osgi.framework;version="1.5.0",
+ org.osgi.util.tracker;version="1.4.0"
+Bundle-Activator: com.gene.bcb.rigb.Activator
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .,lib/commons-lang3-3.0.jar,lib/REngine.jar
+
