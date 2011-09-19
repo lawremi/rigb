@@ -30,6 +30,14 @@ public class GRangesSymLoader extends SymLoader {
 		this.converter = lookupConverterByURI(uri);
 	}
 
+	public static String idToUri(String id) {
+		return null;
+	}
+
+	public static String uriToId(String uri) {
+		return null;
+	}
+
 	@Override
 	public List<? extends SeqSymmetry> getChromosome(BioSeq seq) {
 		return getRegion(new SimpleSeqSpan(1, seq.getLength(), seq));
