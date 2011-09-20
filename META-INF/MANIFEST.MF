@@ -10,7 +10,11 @@ Import-Package:  com.affymetrix.genometryImpl,
  com.affymetrix.genometryImpl.symmetry,
  com.affymetrix.genometryImpl.symloader,
  com.affymetrix.genometryImpl.util,
+ com.affymetrix.genoviz.swing,
+ com.affymetrix.genoviz.swing.recordplayback,
  com.affymetrix.igb.osgi.service,
+ com.affymetrix.igb.shared,
+ javax.swing,
  org.osgi.framework;version="1.5.0",
  org.osgi.util.tracker;version="1.4.0"
 Bundle-Activator: com.gene.bcb.rigb.Activator

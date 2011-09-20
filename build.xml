@@ -18,6 +18,8 @@
     <!-- Compile the java code from ${src} into ${build} -->
     <javac srcdir="${src}" destdir="${build}">
       <classpath location="${env.IGB_DIRECTORY}/genometryImpl/build"/>
+      <classpath location="${env.IGB_DIRECTORY}/genoviz_sdk/build"/>
+      <classpath location="${env.IGB_DIRECTORY}/igb/build"/>
       <classpath location="${env.IGB_DIRECTORY}/plugins/igb_service/build"/>
       <classpath location="${env.IGB_DIRECTORY}/ext/felix.jar"/>
       <classpath location="${env.IGB_DIRECTORY}/ext/tribble-0.1.jar"/>
