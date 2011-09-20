@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import com.affymetrix.genometryImpl.AnnotatedSeqGroup;
 import com.affymetrix.genometryImpl.BioSeq;
@@ -19,6 +22,7 @@ import com.affymetrix.genometryImpl.symloader.SymLoader;
 import com.affymetrix.genometryImpl.util.LoadUtils.LoadStrategy;
 import com.gene.bcb.rigb.DataAccessException;
 import com.gene.bcb.rigb.proxy.GRanges;
+import org.apache.commons.io.FilenameUtils;
 
 public class GRangesSymLoader extends SymLoader {
 	private GRanges granges;
@@ -30,12 +34,12 @@ public class GRangesSymLoader extends SymLoader {
 		this.converter = lookupConverterByURI(uri);
 	}
 
-	public static String idToUri(String id) {
-		return null;
+	public static String idToUri(String id) throws URISyntaxException {
+        return new URI("igb", null, "///" + id + ".rigb", null).toString();
 	}
 
-	public static String uriToId(String uri) {
-		return null;
+	public static String uriToId(String uri) throws URISyntaxException {
+        return FilenameUtils.removeExtension(new File(new URI(uri).getPath()).getName());
 	}
 
 	@Override

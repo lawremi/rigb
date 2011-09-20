@@ -1,0 +1,47 @@
+# -*- org -*-
+* DONE URI-encoding
+  CLOSED: [2011-09-19 Mon 21:18]
+  From [[http://www.faqs.org/rfcs/rfc3986.html][RFC3986]]:
+
+  #+BEGIN_QUOTE
+  When authority is present, the path must either be empty or begin
+  with a slash ("/") character.  When authority is not present, the
+  path cannot begin with two slash characters ("//").
+  #+END_QUOTE
+
+  #+BEGIN_SRC java :tangle encode-uri.bsh :shebang #!/usr/bin/env bsh
+    import java.net.URI;
+    import java.io.File;
+    
+    addClassPath("inst/lib/commons-io-2.0.1.jar");
+    import org.apache.commons.io.FilenameUtils;
+    
+    public static String idToUri(String id) {
+        return new URI("igb", null, "///" + id + ".rigb", null).toString();
+    }
+    
+    public static String uriToId(String uri) {
+        return FilenameUtils.removeExtension(new File(new URI(uri).getPath()).getName());
+    }
+    
+    id = "harro thar";
+    uri = idToUri("harro thar");
+    
+    print(uri.equals("igb:///harro%20thar.rigb"));
+    print(id.equals(uriToId(uri)));
+    
+  #+END_SRC
+* Publication-vectors
+  - Statistical graphics and computational statistics newsletter
+    (rjavax stuff more interesting)
+  - Bioconductor conference
+  - Note in Bioinformatics (one or two page articles an Applications
+    section: IGB)
+  - JSS:
+  - Plugins more technical; R and IGB talking: Bioinformatics.
+  - R-Journal: Rjavax (peer-reviewed);
+  - Nucleic acids research (app note)
+  - Genome research (app note)
+  - Interface conference might take over for the DSC.
+  - RDynload
+  - RIGB nice application
