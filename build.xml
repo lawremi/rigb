@@ -22,7 +22,7 @@
       <classpath location="${env.IGB_DIRECTORY}/igb/build"/>
       <classpath location="${env.IGB_DIRECTORY}/plugins/igb_service/build"/>
       <classpath location="${env.IGB_DIRECTORY}/ext/felix.jar"/>
-      <classpath location="${env.IGB_DIRECTORY}/ext/tribble-0.1.jar"/>
+      <!-- <classpath location="${env.IGB_DIRECTORY}/ext/tribble-0.1.jar"/> -->
       <classpath location="${lib}/REngine.jar"/>
       <classpath location="${lib}/commons-lang3-3.0.jar"/>
       <classpath location="${lib}/commons-io-2.0.1.jar"/>

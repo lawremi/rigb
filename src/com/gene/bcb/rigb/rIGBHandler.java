@@ -11,8 +11,10 @@ import com.affymetrix.genometryImpl.parsers.Parser;
 import com.affymetrix.genometryImpl.symloader.SymLoader;
 import com.gene.bcb.rigb.genometry.GRangesSymLoader;
 
+// BundleContext -> ServiceReference -> FileTypeHandler -> rIGBHandler
 public class rIGBHandler implements FileTypeHandler {
 	private static final String[] EXTENSIONS = new String[]{"rigb"};
+    public int i = 2;
 
 	public rIGBHandler() {
 		super();
