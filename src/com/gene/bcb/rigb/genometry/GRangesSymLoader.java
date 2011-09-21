@@ -11,6 +11,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.File;
 import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.affymetrix.genometryImpl.AnnotatedSeqGroup;
 import com.affymetrix.genometryImpl.BioSeq;
@@ -100,6 +102,7 @@ public class GRangesSymLoader extends SymLoader {
 	}
 
 	private GRanges lookupGRangesByURI(URI uri) {
+        Logger.getLogger(getClass().getName()).logp(Level.INFO, "GRangesSymLoader", "lookupGRangesByURI", uri.toString());
 		// TODO Auto-generated method stub
 		return null;
 	}

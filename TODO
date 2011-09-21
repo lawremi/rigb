@@ -51,7 +51,11 @@
 
   #+BEGIN_SRC java :tangle igb-from-java.bsh :shebang #!/usr/bin/env bsh
     addClassPath("inst/lib/igb_exe.jar");
+    print("singleton: " + com.affymetrix.igb.IGB.getSingleton().toString());
     com.affymetrix.main.Main.main(new String[]{});
+    // utils = com.affymetrix.common.CommonUtils.getInstance();
+    // utils.uninstallBundle("rIGB");
+    // utils.installBundle("/home/pcdanenb/prg/java/rigb/dist/rIGB.jar");
     
   #+END_SRC
 
@@ -61,6 +65,9 @@
     library(rJava)
     .jinit(classpath='inst/lib/igb_exe.jar')
     J("com.affymetrix.main.Main")$main(.jarray(c(), contents.class="[S"))
+    ## utils <- J("com.affymetrix.common.CommonUtils")$getInstance()
+    ## utils$uninstallBundle("rIGB")
+    ## utils$installBundle("/home/pcdanenb/prg/java/rigb/dist/rIGB.jar")
     
     ## Can't prevent R from exiting in non-interactive mode; even with the
     ## following:
