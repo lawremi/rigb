@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.HashMap;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -29,7 +30,13 @@ public class Activator implements BundleActivator {
 	private ServiceRegistration rIGBHandlerRegistration;
 
 	private void registerServices(IGBService igbService) {
-		rIGBHandlerRegistration = bundleContext.registerService(FileTypeHandler.class.getName(), new rIGBHandler(), new Properties());
+		// rIGBHandlerRegistration = bundleContext.registerService(FileTypeHandler.class.getName(), new rIGBHandler(), new Properties());
+        Properties metadata = new Properties();
+        metadata.setProperty("name", "rIGB");
+        rIGBHandlerRegistration =
+            bundleContext.registerService(FileTypeHandler.class.getName(),
+                                          new rIGBHandler(),
+                                          metadata);
 		loadMenu();
 	}
 

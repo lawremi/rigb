@@ -138,6 +138,7 @@
     handler.installBundle("file:///home/pcdanenb/prg/java/rigb/dist/rIGB.jar");
     context = handler.getInstance().getBundleContext();
     references = context.getServiceReferences(com.affymetrix.genometryImpl.parsers.FileTypeHandler.class.getName(), null);
+    references = context.getServiceReferences(com.affymetrix.genometryImpl.parsers.FileTypeHandler.class.getName(), "(name=rIGB)");
     // references = context.getServiceReferences(com.affymetrix.genometryImpl.parsers.FileTypeHandler.class.getName(), "(objectClass=" + com.gene.bcb.rigb.rIGBHandler.class.getName() + ")");
     // references = context.getServiceReferences(com.affymetrix.genometryImpl.parsers.FileTypeHandler.class.getName(),
     //                                           "(objectClass=" + com.affymetrix.genometryImpl.parsers.FileTypeHandler.class.getName() + ")");
