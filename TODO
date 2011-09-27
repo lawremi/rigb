@@ -1,5 +1,8 @@
 # -*- org -*-
-* TODO Get FileTypeHandler from BundleContext
+* DONE Get FileTypeHandler from BundleContext
+  CLOSED: [2011-09-27 Tue 12:18]
+  - CLOSING NOTE [2011-09-27 Tue 12:18] \\
+    Vide [[control][infra]].
   #+BEGIN_SRC java
     ServiceReference igbServiceReference = bundleContext.getServiceReference(FileTypeHandler.class.getName());
     
@@ -29,7 +32,10 @@
     }
     
   #+END_SRC
-* TODO Swing from R.
+* DONE Swing from R.
+  CLOSED: [2011-09-27 Tue 12:17]
+  - CLOSING NOTE [2011-09-27 Tue 12:17] \\
+    Can't join a GUI thread from main, though.
   #+BEGIN_SRC java :tangle FrameDemo.java
     import java.lang.Thread;
     import java.awt.*;
@@ -77,111 +83,81 @@
     
   #+END_SRC
 * TODO Control IGB from R.
+# <<control>>
   This works:
 
   #+BEGIN_SRC java :tangle igb-from-java.bsh :shebang #!/usr/bin/env bsh
     addClassPath("inst/lib/igb_exe.jar");
-    // addClassPath("inst/lib/igb.jar");
-    // addClassPath("inst/lib/felix.jar");
     addClassPath("inst/lib/genometry.jar");
-    // addClassPath("inst/lib/genoviz.jar");
-    // addClassPath("inst/lib/igb_exe.jar");
-    // addClassPath("inst/lib/igb.jar");
     addClassPath("inst/lib/igb_service.jar");
-    // addClassPath("inst/lib/tribble-0.1.jar");
-    // addClassPath("inst/lib/affx_fusion.bnd.jar");
-    // addClassPath("inst/lib/BigWig.jar");
-    // addClassPath("inst/lib/Bookmark.jar");
-    // addClassPath("inst/lib/colt.bnd.jar");
-    // addClassPath("inst/lib/common.jar");
-    // addClassPath("inst/lib/commons-codec-1.4.jar");
-    // addClassPath("inst/lib/commons-io-2.0.1.jar");
-    // addClassPath("inst/lib/commons-lang3-3.0.jar");
-    // addClassPath("inst/lib/commons-net-2.0.bnd.jar");
-    // addClassPath("inst/lib/ExternalView.jar");
-    // addClassPath("inst/lib/felix.jar");
-    // addClassPath("inst/lib/freehep-2.1.1.bnd.jar");
-    // addClassPath("inst/lib/genometry.jar");
-    // addClassPath("inst/lib/genoviz.jar");
-    // addClassPath("inst/lib/GraphAdjuster.jar");
-    // addClassPath("inst/lib/igb_exe.jar");
-    // addClassPath("inst/lib/igb.jar");
-    // addClassPath("inst/lib/igb_service.jar");
-    // addClassPath("inst/lib/image4j.bnd.jar");
-    // addClassPath("inst/lib/jlfgr-1_0.bnd.jar");
-    // addClassPath("inst/lib/jython.bnd.jar");
-    // addClassPath("inst/lib/log4j-1.2.11.bnd.jar");
-    // addClassPath("inst/lib/picard.bnd.jar");
-    // addClassPath("inst/lib/plugins_page.jar");
-    // addClassPath("inst/lib/PropertyView.jar");
-    // addClassPath("inst/lib/REngine.jar");
-    // addClassPath("inst/lib/RestrictionSites.jar");
-    // addClassPath("inst/lib/sam.bnd.jar");
-    // addClassPath("inst/lib/SearchModeIdOrProps.jar");
-    // addClassPath("inst/lib/SearchModeResidue.jar");
-    // addClassPath("inst/lib/SearchView.jar");
-    // addClassPath("inst/lib/swing-layout.bnd.jar");
-    // addClassPath("inst/lib/tribble-0.1.bnd.jar");
-    // addClassPath("inst/lib/tribble-0.1.jar");
-    // addClassPath("inst/lib/window_service_def.jar");
-    // addClassPath("inst/lib/window_service.jar");
-    // addClassPath("jar:file:///home/pcdanenb/prg/java/rigb/inst/lib/igb_exe.jar!/igb.jar");
     addClassPath("dist/rIGB.jar");
-    // import *;
-    // print("singleton: " + com.affymetrix.igb.IGB.getSingleton().toString());
-    com.affymetrix.main.Main.main(new String[]{});
-    // handler = com.affymetrix.main.OSGiHandler.getInstance();
-    // action = com.affymetrix.igb.shared.OpenURIAction();
-    // java.lang.Thread.sleep(10000);
+    
+    import com.affymetrix.main.Main;
+    import com.affymetrix.main.OSGiHandler;
+    import com.affymetrix.genometryImpl.parsers.FileTypeHandler;
+    
+    Main.main(new String[]{});
+    
     handler = com.affymetrix.main.OSGiHandler.getInstance();
     handler.uninstallBundle("rIGB");
     handler.installBundle("file:///home/pcdanenb/prg/java/rigb/dist/rIGB.jar");
-    context = handler.getInstance().getBundleContext();
-    references = context.getServiceReferences(com.affymetrix.genometryImpl.parsers.FileTypeHandler.class.getName(), null);
-    references = context.getServiceReferences(com.affymetrix.genometryImpl.parsers.FileTypeHandler.class.getName(), "(name=rIGB)");
-    // references = context.getServiceReferences(com.affymetrix.genometryImpl.parsers.FileTypeHandler.class.getName(), "(objectClass=" + com.gene.bcb.rigb.rIGBHandler.class.getName() + ")");
-    // references = context.getServiceReferences(com.affymetrix.genometryImpl.parsers.FileTypeHandler.class.getName(),
-    //                                           "(objectClass=" + com.affymetrix.genometryImpl.parsers.FileTypeHandler.class.getName() + ")");
-    // references = context.getServiceReferences(com.affymetrix.genometryImpl.parsers.FileTypeHandler.class.getName(),
-    //                                           "(objectClass=" + com.gene.bcb.rigb.rIGBHandler.class.getName() + ")");
-    print("#################################");
-    print(context);
-    // reference = context.getServiceReferences(com.affymetrix.igb.osgi.service.IGBService.class.getName(), null);
-    // reference = context.getServiceReference(com.affymetrix.genometryImpl.parsers.FileTypeHandler.class.getName());
-    // reference = context.getServiceReference(com.affymetrix.genometryImpl.operator.transform.FloatTransformer.class.getName());
-    // reference = context.getAllServiceReferences(com.affymetrix.genometryImpl.parsers.FileTypeHandler.class.getName(), null);
-    // reference = context.getAllServiceReferences(com.affymetrix.genometryImpl.operator.transform.FloatTransformer.class.getName(), null);
-    // references = context.getServiceReference(com.affymetrix.genometryImpl.parsers.FileTypeHandler.class.getName());
-    print("context: " + context);
-    print("references: " + references);
+    
+    context = handler.getBundleContext();
+    references = context.getServiceReferences(FileTypeHandler.class.getName(), "(name=rIGB)");
+    
     for (reference: references) {
-        // May need to filter handler here (better way to do it: get text
-        // filter to work supra).
         handler = context.getService(reference);
         print(handler.i);
-        print("reference: " + reference);
-        print("handler: " + handler);
     }
-    // print(references.toString() + context.toString() + handler.toString() + "@@@@@@@@@@@@@@@@@@");
     
   #+END_SRC
 
   But a naive translation into rJava doesn't:
 
   #+BEGIN_SRC R :tangle igb-from-R.R :shebang #!/usr/local/bin/R --vanilla --slave -f
+    library(debug)
     library(rJava)
-    .jinit(classpath='inst/lib/igb_exe.jar')
-    J("com.affymetrix.main.Main")$main(.jarray(c(), contents.class="[S"))
-    ## utils <- J("com.affymetrix.common.CommonUtils")$getInstance()
-    ## utils$uninstallBundle("rIGB")
-    ## utils$installBundle("/home/pcdanenb/prg/java/rigb/dist/rIGB.jar")
+    .jinit(classpath=c('inst/lib/igb_exe.jar',
+             'inst/lib/genometry.jar',
+             'inst/lib/igb_service.jar',
+             'dist/rIGB.jar'))
     
-    ## Can't prevent R from exiting in non-interactive mode; even with the
-    ## following:
-    ## 
-    ## .jinit(classpath='.')
-    ## J("FrameDemo")$main(.jnull())
-    ## J("FrameDemo")$thread$join()
+    J("com.affymetrix.main.Main")$main(.jarray(c(), contents.class="[S"))
+    
+    handler <- J("com.affymetrix.main.OSGiHandler")$getInstance()
+    handler$uninstallBundle('rIGB')
+    handler$installBundle('file:///home/pcdanenb/prg/java/rigb/dist/rIGB.jar')
+    
+    context <- handler$getBundleContext()
+    references <- context$getServiceReferences(J('com.affymetrix.genometryImpl.parsers.FileTypeHandler')$class$getName(), '(name=rIGB)')
+    
+    for (reference in as.list(references)) {
+      handler <- context$getService(reference)
+      debug(handler$i)
+    }
+    
+  #+END_SRC
+
+  #+BEGIN_SRC makefile :tangle rigb.mk :shebang #!/usr/bin/unexpand -t 4
+    JAR=dist/rIGB.jar
+    ifndef GENOVIZ
+        GENOVIZ=/usr/local/src/genoviz
+    endif
+    
+    .PHONY: all jar igb
+    
+    all: igb jar
+    
+    jar:
+        IGB_DIRECTORY=$(GENOVIZ) ant dist
+    
+    igb:
+        ( cd $(GENOVIZ) && \
+          ant cbc exe ) && \
+        cp -v "$(GENOVIZ)/igb_exe.jar" \
+              "$(GENOVIZ)/dist/genometry.jar" \
+              "$(GENOVIZ)/dist/igb_service.jar" \
+              inst/lib
     
   #+END_SRC
 * DONE URI-encoding
