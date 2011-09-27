@@ -133,7 +133,7 @@
     
     for (reference in as.list(references)) {
       handler <- context$getService(reference)
-      debug(handler$i)
+      debug(handler$idToGRanges)
     }
     
   #+END_SRC
@@ -144,11 +144,11 @@
         GENOVIZ=/usr/local/src/genoviz
     endif
     
-    .PHONY: all jar igb
+    .PHONY: all igb rigb
     
-    all: igb jar
+    all: igb rigb
     
-    jar:
+    rigb:
         IGB_DIRECTORY=$(GENOVIZ) ant dist
     
     igb:

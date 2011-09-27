@@ -3,6 +3,7 @@ package com.gene.bcb.rigb;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
+import java.util.HashMap;
 
 import com.affymetrix.genometryImpl.AnnotatedSeqGroup;
 import com.affymetrix.genometryImpl.parsers.FileTypeHandler;
@@ -10,11 +11,12 @@ import com.affymetrix.genometryImpl.parsers.IndexWriter;
 import com.affymetrix.genometryImpl.parsers.Parser;
 import com.affymetrix.genometryImpl.symloader.SymLoader;
 import com.gene.bcb.rigb.genometry.GRangesSymLoader;
+import com.gene.bcb.rigb.proxy.GRanges;
 
-// BundleContext -> ServiceReference -> FileTypeHandler -> rIGBHandler
 public class rIGBHandler implements FileTypeHandler {
 	private static final String[] EXTENSIONS = new String[]{"rigb"};
-    public int i = 2;
+    public HashMap<String, GRanges> idToGRanges =
+        new HashMap<String, GRanges>();
 
 	public rIGBHandler() {
 		super();
