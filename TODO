@@ -129,7 +129,9 @@
     handler$installBundle('file:///home/pcdanenb/prg/java/rigb/dist/rIGB.jar')
     
     context <- handler$getBundleContext()
-    references <- context$getServiceReferences(J('com.affymetrix.genometryImpl.parsers.FileTypeHandler')$class$getName(), '(name=rIGB)')
+    references <-
+      context$getServiceReferences(J('com.gene.bcb.rigb.rIGBManager')$class$getName(),
+                                   null)
     
     for (reference in as.list(references)) {
       handler <- context$getService(reference)

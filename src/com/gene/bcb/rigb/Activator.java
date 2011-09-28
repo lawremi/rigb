@@ -16,17 +16,18 @@ import org.osgi.framework.ServiceRegistration;
 import org.osgi.util.tracker.ServiceTracker;
 
 import com.affymetrix.genometryImpl.parsers.FileTypeHandler;
+import com.affymetrix.genometryImpl.event.GenericAction;
 import com.affymetrix.genoviz.swing.MenuUtil;
 import com.affymetrix.genoviz.swing.recordplayback.JRPMenu;
 import com.affymetrix.genoviz.swing.recordplayback.JRPMenuItem;
 import com.affymetrix.igb.osgi.service.IGBService;
-import com.affymetrix.igb.shared.IGBAction;
 import com.affymetrix.igb.shared.OpenURIAction;
 import com.gene.bcb.rigb.genometry.GRangesSymLoader;
 
 public class Activator implements BundleActivator {
 	private BundleContext bundleContext;
 	private ServiceRegistration rIGBHandlerRegistration;
+	private ServiceRegistration rIGBManagerRegistration;
 
 	private void registerServices(IGBService igbService) {
 		// rIGBHandlerRegistration = bundleContext.registerService(FileTypeHandler.class.getName(), new rIGBHandler(), new Properties());
@@ -36,6 +37,11 @@ public class Activator implements BundleActivator {
             bundleContext.registerService(FileTypeHandler.class.getName(),
                                           new rIGBHandler(),
                                           metadata);
+        rIGBManagerRegistration =
+            bundleContext.registerService(rIGBManager.class.getName(),
+                                          rIGBManager.getInstance(),
+                                          new Properties());
+            
 		loadMenu();
 	}
 
@@ -79,7 +85,7 @@ public class Activator implements BundleActivator {
 		rIGBHandlerRegistration.unregister();
 	}
 
-	private IGBAction getOpenIdAction(final String id) {
+	private GenericAction getOpenIdAction(final String id) {
 		return new OpenURIAction() {
 			private static final long serialVersionUID = 1L;
 
