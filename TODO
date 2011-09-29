@@ -82,7 +82,7 @@
     }
     
   #+END_SRC
-* TODO Control IGB from R.
+* COMMENT TODO Control IGB from R.
 # <<control>>
   This works:
 
@@ -90,37 +90,48 @@
     addClassPath("inst/lib/igb_exe.jar");
     addClassPath("inst/lib/genometry.jar");
     addClassPath("inst/lib/igb_service.jar");
+    addClassPath("inst/lib/igb.jar");
+    addClassPath("inst/lib/REngine.jar");
     addClassPath("dist/rIGB.jar");
+    
+    import java.net.URI;
     
     import com.affymetrix.main.Main;
     import com.affymetrix.main.OSGiHandler;
     import com.affymetrix.genometryImpl.parsers.FileTypeHandler;
     
+    import com.gene.bcb.rigb.proxy.GRanges;
+    import com.gene.bcb.rigb.rIGBManager;
+    
     Main.main(new String[]{});
     
-    handler = com.affymetrix.main.OSGiHandler.getInstance();
+    handler = OSGiHandler.getInstance();
     handler.uninstallBundle("rIGB");
     handler.installBundle("file:///home/pcdanenb/prg/java/rigb/dist/rIGB.jar");
     
     context = handler.getBundleContext();
-    references = context.getServiceReferences(FileTypeHandler.class.getName(), "(name=rIGB)");
+    reference = context.getServiceReference(rIGBManager.class.getName());
+    manager = context.getService(reference);
     
-    for (reference: references) {
-        handler = context.getService(reference);
-        print(handler.i);
-    }
+    manager.idToGRanges.put("beispiel", new GRanges(null));
+    manager.openURI("igb://beispiel.rigb");
     
   #+END_SRC
 
   But a naive translation into rJava doesn't:
 
-  #+BEGIN_SRC R :tangle igb-from-R.R :shebang #!/usr/local/bin/R --vanilla --slave -f
+  #+BEGIN_SRC R :tangle igb-from-R.R :shebang #!/usr/local/bin/R -f
+    library(GenomicRanges)
     library(debug)
     library(rJava)
     .jinit(classpath=c('inst/lib/igb_exe.jar',
              'inst/lib/genometry.jar',
              'inst/lib/igb_service.jar',
+             'inst/lib/REngine.jar',
+             'inst/lib/JRI.jar',
+             'inst/lib/JRIEngine.jar',
              'dist/rIGB.jar'))
+    .jengine(TRUE)
     
     J("com.affymetrix.main.Main")$main(.jarray(c(), contents.class="[S"))
     
@@ -129,14 +140,22 @@
     handler$installBundle('file:///home/pcdanenb/prg/java/rigb/dist/rIGB.jar')
     
     context <- handler$getBundleContext()
-    references <-
-      context$getServiceReferences(J('com.gene.bcb.rigb.rIGBManager')$class$getName(),
-                                   null)
     
-    for (reference in as.list(references)) {
-      handler <- context$getService(reference)
-      debug(handler$idToGRanges)
-    }
+    reference <-
+      context$getServiceReference(J('com.gene.bcb.rigb.rIGBManager')$class$getName())
+    
+    manager <- context$getService(reference)
+    
+    granges <- new("GRanges",
+                   seqnames = Rle(factor(c("chr1", "chr2", "chr1", "chr3")), c(1, 3, 2, 4)),
+                   ranges = IRanges(1:10, width = 10:1, names = head(letters, 10)),
+                   strand = Rle(strand(c("-", "+", "*", "+", "-")), c(1, 2, 2, 3, 2)),
+                   seqinfo = Seqinfo(seqnames = paste("chr", 1:3, sep="")),
+                   elementMetadata = DataFrame(score = 1:10, GC = seq(1, 0, length=10)))
+    
+    manager$putGRanges("beispiel", toJava(granges))
+    ## manager$putGRanges(toJava(granges))
+    manager$openURI("igb:///beispiel.rigb")
     
   #+END_SRC
 
@@ -157,8 +176,9 @@
         ( cd $(GENOVIZ) && \
           ant cbc exe ) && \
         cp -v "$(GENOVIZ)/igb_exe.jar" \
-              "$(GENOVIZ)/dist/genometry.jar" \
-              "$(GENOVIZ)/dist/igb_service.jar" \
+              "$(GENOVIZ)/bundles/genometry.jar" \
+              "$(GENOVIZ)/bundles/igb_service.jar" \
+              "$(GENOVIZ)/bundles/igb.jar" \
               inst/lib
     
   #+END_SRC

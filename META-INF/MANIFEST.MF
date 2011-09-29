@@ -6,6 +6,7 @@ Bundle-Version: 0.0.1
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package:  com.affymetrix.genometryImpl,
  com.affymetrix.genometryImpl.parsers,
+ com.affymetrix.genometryImpl.event,
  com.affymetrix.genometryImpl.span,
  com.affymetrix.genometryImpl.symmetry,
  com.affymetrix.genometryImpl.symloader,

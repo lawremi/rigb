@@ -22,6 +22,7 @@ import com.affymetrix.genometryImpl.span.SimpleSeqSpan;
 import com.affymetrix.genometryImpl.symloader.SymLoader;
 import com.affymetrix.genometryImpl.util.LoadUtils.LoadStrategy;
 import com.gene.bcb.rigb.DataAccessException;
+import com.gene.bcb.rigb.rIGBManager;
 import com.gene.bcb.rigb.proxy.GRanges;
 import org.apache.commons.io.FilenameUtils;
 
@@ -29,9 +30,12 @@ public class GRangesSymLoader extends SymLoader {
 	private GRanges granges;
 	private GRangesToSymmetries converter;
 
-	public GRangesSymLoader(URI uri, String featureName, AnnotatedSeqGroup group) {
+	public GRangesSymLoader(URI uri, String featureName, AnnotatedSeqGroup group)
+        throws URISyntaxException {
 		super(uri, featureName, group);
+        System.out.println("############################");
 		this.granges = lookupGRangesByURI(uri);
+        System.out.println("############################");
 		this.converter = lookupConverterByURI(uri);
 	}
 
@@ -50,18 +54,19 @@ public class GRangesSymLoader extends SymLoader {
 
 	@Override
 	public List<BioSeq> getChromosomeList() {
-		Map<String, Integer> seqlengths = Collections.emptyMap();
-		try {
-			seqlengths = granges.getSeqLengths();
-		} catch (DataAccessException e) {
-			Logger.getLogger(GRangesSymLoader.class.getName()).log(Level.SEVERE,
-					"Failed to build chromosome list", e);
-		}
-		List<BioSeq> chromosomeList = new ArrayList<BioSeq>(seqlengths.size());
-		for (Entry<String, Integer> seqlength : seqlengths.entrySet()) {
-			chromosomeList.add(group.addSeq(seqlength.getKey(), seqlength.getValue()));
-		}
-		return chromosomeList;
+		// Map<String, Integer> seqlengths = Collections.emptyMap();
+		// try {
+		// 	seqlengths = granges.getSeqLengths();
+		// } catch (DataAccessException e) {
+		// 	Logger.getLogger(GRangesSymLoader.class.getName()).log(Level.SEVERE,
+		// 			"Failed to build chromosome list", e);
+		// }
+		// List<BioSeq> chromosomeList = new ArrayList<BioSeq>(seqlengths.size());
+		// for (Entry<String, Integer> seqlength : seqlengths.entrySet()) {
+		// 	chromosomeList.add(group.addSeq(seqlength.getKey(), seqlength.getValue()));
+		// }
+		// return chromosomeList;
+        return new ArrayList<BioSeq>();
 	}
 
 	@Override
@@ -101,10 +106,10 @@ public class GRangesSymLoader extends SymLoader {
 		return symmetries;
 	}
 
-	private GRanges lookupGRangesByURI(URI uri) {
-        Logger.getLogger(getClass().getName()).logp(Level.INFO, "GRangesSymLoader", "lookupGRangesByURI", uri.toString());
+	private GRanges lookupGRangesByURI(URI uri) throws URISyntaxException {
+        Logger.getLogger(getClass().getName()).logp(Level.INFO, "GRangesSymLoader", "lookupGRangesByURI", "&&&&&&&&&&&&&&&&&&&&&&&& " + rIGBManager.getInstance().idToGRanges.get(uriToId(uri.toString())));
 		// TODO Auto-generated method stub
-		return null;
+        return rIGBManager.getInstance().idToGRanges.get(uriToId(uri.toString()));
 	}
 
 	private GRangesToSymmetries lookupConverterByURI(URI uri) {

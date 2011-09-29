@@ -57,9 +57,6 @@ public class Activator implements BundleActivator {
 	@Override
 	public void start(BundleContext bundleContext_) throws Exception {
 		this.bundleContext = bundleContext_;
-        System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-        System.out.println(this.bundleContext);
-        System.out.println(bundleContext.getAllServiceReferences(com.affymetrix.genometryImpl.parsers.FileTypeHandler.class.getName(), null));
     	ServiceReference igbServiceReference = bundleContext.getServiceReference(IGBService.class.getName());
 
         if (igbServiceReference != null)
