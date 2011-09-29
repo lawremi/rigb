@@ -82,7 +82,7 @@
     }
     
   #+END_SRC
-* COMMENT TODO Control IGB from R.
+* TODO Control IGB from R.
 # <<control>>
   This works:
 
@@ -153,9 +153,10 @@
                    seqinfo = Seqinfo(seqnames = paste("chr", 1:3, sep="")),
                    elementMetadata = DataFrame(score = 1:10, GC = seq(1, 0, length=10)))
     
-    manager$putGRanges("beispiel", toJava(granges))
+    ## manager$putGRanges("beispiel", toJava(granges))
     ## manager$putGRanges(toJava(granges))
-    manager$openURI("igb:///beispiel.rigb")
+    ## manager$openURI("igb:///beispiel.rigb")
+    manager$putGRanges()
     
   #+END_SRC
 
