@@ -3,6 +3,7 @@ package com.gene.bcb.rigb;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
+import java.net.URISyntaxException;
 
 import com.affymetrix.genometryImpl.AnnotatedSeqGroup;
 import com.affymetrix.genometryImpl.parsers.FileTypeHandler;
@@ -35,8 +36,13 @@ public class rIGBHandler implements FileTypeHandler {
 	@Override
 	public SymLoader createSymLoader(URI uri, String featureName,
 			AnnotatedSeqGroup group) {
-		SymLoader symLoader = new GRangesSymLoader(uri, featureName, group);
-		return symLoader;
+        try {
+            SymLoader symLoader = new GRangesSymLoader(uri, featureName, group);
+            return symLoader;
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+		return null;
 	}
 
 	@Override

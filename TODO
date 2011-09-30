@@ -92,6 +92,8 @@
     addClassPath("inst/lib/igb_service.jar");
     addClassPath("inst/lib/igb.jar");
     addClassPath("inst/lib/REngine.jar");
+    addClassPath("inst/lib/JRI.jar");
+    addClassPath("inst/lib/JRIEngine.jar");
     addClassPath("dist/rIGB.jar");
     
     import java.net.URI;
@@ -102,6 +104,8 @@
     
     import com.gene.bcb.rigb.proxy.GRanges;
     import com.gene.bcb.rigb.rIGBManager;
+    
+    import org.rosuda.REngine.REngine;
     
     Main.main(new String[]{});
     
@@ -115,6 +119,9 @@
     
     manager.idToGRanges.put("beispiel", new GRanges(null));
     manager.openURI("igb://beispiel.rigb");
+    
+    // print(System.getProperty("java.library.path"));
+    // print(REngine.engineForClass("org.rosuda.REngine.JRI.JRIEngine"));
     
   #+END_SRC
 
@@ -156,7 +163,8 @@
     ## manager$putGRanges("beispiel", toJava(granges))
     ## manager$putGRanges(toJava(granges))
     ## manager$openURI("igb:///beispiel.rigb")
-    manager$putGRanges()
+    print(manager$putGRanges())
+    print("You're not going to see this: the above blocks.");
     
   #+END_SRC
 
@@ -183,6 +191,9 @@
               inst/lib
     
   #+END_SRC
+
+  JRIEngine: call =getNamespace("rigb")= on =baseenv=; try =null=
+  first. Serialization? [[http://stat.ethz.ch/R-manual/R-patched/library/base/html/save.html][Save]].
 * DONE URI-encoding
   CLOSED: [2011-09-19 Mon 21:18]
   From [[http://www.faqs.org/rfcs/rfc3986.html][RFC3986]]:
