@@ -15,6 +15,7 @@ Import-Package:  com.affymetrix.genometryImpl,
  com.affymetrix.genoviz.swing.recordplayback,
  com.affymetrix.igb.osgi.service,
  com.affymetrix.igb.shared,
+ com.affymetrix.igb,
  javax.swing,
  org.osgi.framework;version="1.5.0",
  org.osgi.util.tracker;version="1.4.0"
