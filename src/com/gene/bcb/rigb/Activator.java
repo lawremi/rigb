@@ -22,6 +22,7 @@ import com.affymetrix.genoviz.swing.recordplayback.JRPMenu;
 import com.affymetrix.genoviz.swing.recordplayback.JRPMenuItem;
 import com.affymetrix.igb.osgi.service.IGBService;
 import com.affymetrix.igb.shared.OpenURIAction;
+import com.affymetrix.igb.IGBServiceImpl;
 import com.gene.bcb.rigb.genometry.GRangesSymLoader;
 
 public class Activator implements BundleActivator {
@@ -83,7 +84,7 @@ public class Activator implements BundleActivator {
 	}
 
 	private GenericAction getOpenIdAction(final String id) {
-		return new OpenURIAction() {
+		return new OpenURIAction(IGBServiceImpl.getInstance()) {
 			private static final long serialVersionUID = 1L;
 
 			@Override

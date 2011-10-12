@@ -12,6 +12,7 @@ import org.rosuda.REngine.REngineException;
 import org.rosuda.REngine.REngineStdOutput;
 import org.rosuda.REngine.JRI.JRIEngine;
 
+import com.affymetrix.igb.IGBServiceImpl;
 import com.gene.bcb.rigb.proxy.GRanges;
 
 public class rIGBManager {
@@ -40,15 +41,18 @@ public class rIGBManager {
 
     public void putGRanges() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, REngineException {
         // REngine engine = REngine.engineForClass("org.rosuda.REngine.JRI.JRIEngine");
-        REngine engine = JRIEngine.createEngine(new String[] {"--vanilla", "--slave"},
-                                                new REngineStdOutput(),
-                                                false);
+        // REngine engine = JRIEngine.createEngine(new String[] {"--vanilla", "--slave"},
+        //                                         new REngineStdOutput(),
+        //                                         false);
+
+        REngine engine = new org.rosuda.REngine.JRI. JRIEngine(new org.rosuda.JRI.Rengine());
+
         // You're not going to see this; the above blocks.
         System.out.println(engine.toString());
     }
 
     public void openURI(final String uri) throws URISyntaxException {
-        new OpenURIAction() {
+        new OpenURIAction(IGBServiceImpl.getInstance()) {
             public String getText() {
                 return uri;
             }            
