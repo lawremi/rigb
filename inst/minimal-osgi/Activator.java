@@ -7,6 +7,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceListener;
 import org.osgi.framework.ServiceEvent;
 
+import org.rosuda.REngine.REXPReference;
 /**
  * This class implements a simple bundle that utilizes the OSGi
  * framework's event mechanism to listen for service events. Upon
@@ -14,6 +15,20 @@ import org.osgi.framework.ServiceEvent;
  **/
 public class Activator implements BundleActivator, ServiceListener
 {
+    // public final static Activator INSTANCE = new Activator();
+    public static Activator INSTANCE;
+
+    public Activator() {
+    }
+
+    public static Activator getInstance() {
+        return INSTANCE;
+    }
+
+    public void reference(REXPReference reference) {
+        System.out.println("Reference" + reference.toString());
+    }
+
     /**
      * Implements BundleActivator.start(). Prints
      * a message and adds itself to the bundle context as a service
@@ -22,7 +37,9 @@ public class Activator implements BundleActivator, ServiceListener
      **/
     public void start(BundleContext context)
     {
+        this.INSTANCE = new Activator();
         System.out.println("Starting to listen for service events.");
+        System.out.println("INSTANCE: " + INSTANCE.toString());
         context.addServiceListener(this);
     }
 
